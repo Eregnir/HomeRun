@@ -18,8 +18,8 @@ html, body {
   font-family: 'Roboto', 'Helvetica', sans-serif;
 }
 .demo-avatar {
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 65px;
   border-radius: 24px;
 }
 .demo-layout .mdl-layout__header .mdl-layout__drawer-button {
@@ -212,4 +212,31 @@ _:-ms-input-placeholder, :root .demo-graph {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+/* Dashboard Page CSS - Changes Idan */
+
+/* Family members avatars */
+
+.head-profile {
+	margin: 10px auto;
+}
+
+.head-profile img {
+	height: auto;
+}
+
+.profile-text {
+  color: #37474F;
+  position: relative;
+  left: 30px;
+}
+
+.text-active {
+  font-weight: bold;
+}
+
+.head-profile img:hover {
+  cursor: pointer;
+  opacity: 80%;
 }
