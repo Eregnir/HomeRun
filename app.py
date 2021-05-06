@@ -22,15 +22,12 @@ application = Flask(__name__, '/static')
 #################### Application Routes ####################
 @application.route('/')
 def index():
-    #call the engine
-
-    return render_template('index.html',ems=e1)
+    return render_template('index.html')
 
 
-
-@application.route('/home_2')
+@application.route('/login')
 def home2():
-    return render_template('pages/home_2.html')
+    return render_template('pages/login.html')
     
 
 @application.route('/books_list')
