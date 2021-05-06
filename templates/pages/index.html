@@ -35,7 +35,12 @@
         <![endif]-->
 
 <!-- HomeRun scripts start here -->
-        <!-- Google charts API - Define chart structure -->
+    <!-- Get data from DB -->
+        <!-- Hard-coded weekly-hours by category-->
+    <script id="weekly_data" type="application/json">[{"tag":"work", "hours":10}, {"tag":"outdoor", "hours":2}, {"tag":"sport", "hours":4}, {"tag":"hangout", "hours":5}, {"tag":"love", "hours":5}]</script>
+
+
+    <!-- Google charts API - Define chart structure -->
         <!--Load the AJAX API-->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
@@ -63,20 +68,29 @@
           ['Pepperoni', 2]
         ]);
 
+        var weeklyDataJSON = JSON.parse(document.getElementById('weekly_data').textContent);
+        var weeklyData = new google.visualization.DataTable();
+        weeklyData.addColumn('string', 'Activity');
+        weeklyData.addColumn('number', 'Weekly hours');
+
+        //Converting the array of objects to array of arrays (required parameter for 'addRows()')
+        weeklyDataJSON_array = weeklyDataJSON.map(row => Object.values(row));
+        weeklyData.addRows(weeklyDataJSON_array);
+
         // Set chart options
-        var options = {'title':'How Much Pizza I Ate Last Night',
+        var options = {'title':'My week',
                        'width':400,
                        'height':300};
 
         // Instantiate and draw our chart, passing in some options.
         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
         chart.draw(data, options);
+
+        var weekly_chart = new google.visualization.PieChart(document.getElementById('weekly_chart_div'));
+        weekly_chart.draw(weeklyData, options);
       }
     </script>
         <!-- END Google Charts API -->
-
-        <script id="data" type="application/json">{"org": 10, "items":["one","two"]}</script>
-
     </head>
     <body>
 
@@ -414,6 +428,7 @@
                                         <H2>HomeRun charts - Overview</H2>
                                         <h3>How did I spend my time this week?</h3>
                                         <div id="chart_div"></div>
+                                        <div id="weekly_chart_div"></div>
                                     </div>
                                 </div>
                                 <!-- /.panel-body -->
