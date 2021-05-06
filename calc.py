@@ -1,6 +1,5 @@
 import json
 import pandas as pd
-from flask_cors import cross_origin
 
 
 history = pd.read_csv('history_data.csv', encoding='latin-1')
@@ -19,13 +18,20 @@ final_df = pd.read_json('file.json', orient='split', compression='infer')
 # check
 done_df = final_df.to_json()
 
-# @app.route('/calculations', methods=['POST'])
-# @cross_origin()
-# def time_spent_on_event():
-#     return final_df.to_json()
 
-# Display event description: group each event title to its descriptions
+# Making the dataframe to kids
 
+filter_attendees = history.filter(items=['event_title', 'duration_in_hours', 'attendees'])
+
+kids = filter_attendees.groupby(['attendees']).sum()
+
+# change sum_per_events to json format.
+kids.to_json('file.json', orient='split', compression='infer', index='true')
+kids_df = pd.read_json('file.json', orient='split', compression='infer')
+# final_df.to_json()
+
+# check
+attendees_sum_df = kids_df.to_json()
 
 
 

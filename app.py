@@ -12,6 +12,11 @@ def time_spent_on_event():
     return calc.done_df
 
 
+@application.route('/kids', methods=['POST'])
+@cross_origin()
+def time_spent_with_family():
+    return calc.attendees_sum_df
+
 #################### Configure DB: ####################
 # application.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin:1forall!@rds-mysql-bambook.cqjurd0qbtdg.eu-central-1.rds.amazonaws.com/Bambook'
 ##need to initialize an engine 
