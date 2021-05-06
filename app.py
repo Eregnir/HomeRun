@@ -1,9 +1,15 @@
 from flask import Flask, render_template, request, redirect
 from flask_cors import CORS, cross_origin
+import calc
 
 application = Flask(__name__, '/static')
 CORS(application)
 
+
+@application.route('/calculations', methods=['POST'])
+@cross_origin()
+def time_spent_on_event():
+    return calc.done_df
 
 
 #################### Configure DB: ####################
@@ -61,3 +67,4 @@ def profile():
 
 if __name__ == '__main__':
     application.run()
+
