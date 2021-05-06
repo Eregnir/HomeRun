@@ -38,9 +38,9 @@ def test():
 def cart():
     return render_template('pages/Overview.html')
 
-@application.route('/bookshelf')
+@application.route('/a')
 def bookshelf():
-    return render_template('pages/bookshelf.html')
+    return render_template('pages/dashboard.html')
 
 @application.route('/pages')
 def pages():
