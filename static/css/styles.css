@@ -227,11 +227,20 @@ _:-ms-input-placeholder, :root .demo-graph {
   opacity: 50%;
 }
 
+/* Active user */
+
+.head-active img {
+  opacity: 100%;
+}
+
+
 .profile-text {
   color: #37474F;
   position: relative;
   left: 30px;
 }
+
+/* Active user */
 
 .text-active {
   font-weight: bold;
@@ -240,4 +249,14 @@ _:-ms-input-placeholder, :root .demo-graph {
 .head-profile img:hover {
   cursor: pointer;
   opacity: 80%;
+}
+
+#weekly-date {
+  text-align: center;
+}
+
+#weekly-date span {
+  background-color: #ccc;
+  padding: 10px 5px;
+  
 }
