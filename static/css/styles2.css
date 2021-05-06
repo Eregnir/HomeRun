@@ -15,7 +15,7 @@ body::before {
        (max-width: 1024px) and (-webkit-max-device-pixel-ratio: 1.5),
        (max-width: 1024px) and (max-resolution: 1.5dppx) {
   body::before {
-    background-image: url('../images/bg1.jpeg');
+    background-image: url('../images/wp2.jpg');
   }
 }
 @media (min-width: 513px)  and (max-width: 1024px) and (-webkit-min-device-pixel-ratio: 1.5),
@@ -23,7 +23,7 @@ body::before {
        (min-width: 1025px) and (max-width: 2048px) and (-webkit-max-device-pixel-ratio: 1.5),
        (min-width: 1025px) and (max-width: 2048px) and (max-resolution: 1.5dppx)  {
   body::before {
-    background-image: url('../images/bg1.jpeg');
+    background-image: url('../images/wp2.jpg');
   }
 }
 @media (min-width: 1025px) and (-webkit-min-device-pixel-ratio: 1.5),
@@ -31,7 +31,7 @@ body::before {
        (min-width: 2049px) and (-webkit-max-device-pixel-ratio: 1.5),
        (min-width: 2049px) and (max-resolution: 1.5dppx) {
   body::before {
-    background-image: url('../images/bg1.jpeg');
+    background-image: url('../images/wp2.jpg');
   }
 }
 body .demo-blog {
@@ -52,7 +52,7 @@ body .demo-blog {
 }
 
 .demo-blog.mdl-layout .mdl-layout__content {
-  padding-top: 230px;
+  padding-top: 100px;
   position: relative;
   -webkit-overflow-scrolling: touch;
 }
@@ -221,10 +221,10 @@ body .demo-blog {
   border-bottom-right-radius: 2px;
 }
 .demo-blog .on-the-road-again .mdl-card__media {
-  background-image: url('../images/road.jpg');
+  background-image: url('../images/diamond.jpg');
 }
 .demo-blog .shopping .mdl-card__media {
-  background-image: url('../images/shopping.jpg');
+  background-image: url('../images/simpsons.png');
 }
 .demo-blog .demo-blog__posts > .demo-nav {
   margin: 12px 15px;
@@ -498,3 +498,8 @@ body .demo-blog {
   background-color: white;
   box-sizing: border-box;
 }
+
+.demoshadow {
+  -webkit-box-shadow: 5px 5px 15px -4px rgba(0,0,0,0.84); 
+  box-shadow: 5px 5px 15px -4px rgba(0,0,0,0.84);
+  }
