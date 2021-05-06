@@ -3,6 +3,11 @@ import pandas as pd
 
 history = pd.read_csv('history_data.csv.csv', encoding='latin-1')
 
+history.groupby(['event_title']).sum()
+
+# response = {
+#     'event_title':
+# }
 
 # def get_books():
 #     print("Hello") ##delete
