@@ -30,13 +30,13 @@ def home2():
     return render_template('pages/login.html')
     
 
-@application.route('/books_list')
-def books_list():
-    return render_template('pages/books_list.html')
+@application.route('/test')
+def test():
+    return render_template('pages/TestPage.html')
 
-@application.route('/cart')
+@application.route('/o')
 def cart():
-    return render_template('pages/cart.html')
+    return render_template('pages/Overview.html')
 
 @application.route('/bookshelf')
 def bookshelf():
