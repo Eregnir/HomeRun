@@ -1,13 +1,22 @@
 import json
 import pandas as pd
 
-history = pd.read_csv('history_data.csv.csv', encoding='latin-1')
+history = pd.read_csv('history_data.csv', encoding='latin-1')
 
-history.groupby(['event_title']).sum()
+filter_history = history.filter(items=['event_title', 'duration_in_hours'])
 
-# response = {
-#     'event_title':
-# }
+sum_per_events = filter_history.groupby(['event_title']).sum()
+
+# change sum_per_events to json format.
+sum_per_events.to_json('file.json', orient = 'split', compression = 'infer', index = 'true')
+final_df = pd.read_json('file.json', orient ='split', compression = 'infer')
+# final_df.to_json()
+
+
+def time_spent_on_event():
+    return final_df.to_json()
+
+
 
 # def get_books():
 #     print("Hello") ##delete
