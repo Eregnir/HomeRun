@@ -37,7 +37,8 @@
 <!-- HomeRun scripts start here -->
     <!-- Get data from DB -->
         <!-- Hard-coded weekly-hours by category-->
-    <script id="weekly_data" type="application/json">[{"tag":"work", "hours":10}, {"tag":"outdoor", "hours":2}, {"tag":"sport", "hours":4}, {"tag":"hangout", "hours":5}, {"tag":"love", "hours":5}]</script>
+    <!-- obsolete <script id="weekly_data" type="application/json">[{"tag":"work", "hours":10}, {"tag":"outdoor", "hours":2}, {"tag":"sport", "hours":4}, {"tag":"hangout", "hours":5}, {"tag":"love", "hours":5}]</script> -->
+    <script id="weekly_data" type="application/json">{"duration_in_hours":{"hangout":4,"love":3,"outdoor":2,"sport":1,"work":21}}</script>
 
 
     <!-- Google charts API - Define chart structure -->
@@ -54,7 +55,7 @@
       // Callback that creates and populates a data table,
       // instantiates the pie chart, passes in the data and
       // draws it.
-      function drawChart() {
+      async function drawChart() {
 
         // Create the data table.
         var data = new google.visualization.DataTable();
@@ -68,13 +69,15 @@
           ['Pepperoni', 2]
         ]);
 
-        var weeklyDataJSON = JSON.parse(document.getElementById('weekly_data').textContent);
+        var weeklyDataJSON = await getWeeklyData();
         var weeklyData = new google.visualization.DataTable();
         weeklyData.addColumn('string', 'Activity');
         weeklyData.addColumn('number', 'Weekly hours');
 
+        
         //Converting the array of objects to array of arrays (required parameter for 'addRows()')
-        weeklyDataJSON_array = weeklyDataJSON.map(row => Object.values(row));
+        //obsolete: weeklyDataJSON_array = weeklyDataJSON.map(row => Object.values(row));
+        weeklyDataJSON_array = Object.entries(weeklyDataJSON.duration_in_hours);
         weeklyData.addRows(weeklyDataJSON_array);
 
         // Set chart options
@@ -88,6 +91,13 @@
 
         var weekly_chart = new google.visualization.PieChart(document.getElementById('weekly_chart_div'));
         weekly_chart.draw(weeklyData, options);
+      }
+
+      async function getWeeklyData(){
+        const url = 'https://run.mocky.io/v3/6184f23f-8dd1-49f0-8e32-809a797f1aa0';
+        const response = await fetch(url);
+        const jsonResponse = await response.json();
+        return jsonResponse;
       }
     </script>
         <!-- END Google Charts API -->
