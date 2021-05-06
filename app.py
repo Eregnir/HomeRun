@@ -1,6 +1,10 @@
 from flask import Flask, render_template, request, redirect
+from flask_cors import CORS, cross_origin
 
 application = Flask(__name__, '/static')
+CORS(application)
+
+
 
 #################### Configure DB: ####################
 # application.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin:1forall!@rds-mysql-bambook.cqjurd0qbtdg.eu-central-1.rds.amazonaws.com/Bambook'
