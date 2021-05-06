@@ -18,7 +18,7 @@ final_df = pd.read_json('file.json', orient ='split', compression = 'infer')
 # final_df.to_json()
 
 
-@app.route('/calculations', methods=['POST'])
+# @app.route('/calculations', methods=['POST'])
 @cross_origin()
 def time_spent_on_event():
     return final_df.to_json()
