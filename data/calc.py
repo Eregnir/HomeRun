@@ -13,8 +13,8 @@ filter_history = history.filter(items=['event_title', 'duration_in_hours'])
 sum_per_events = filter_history.groupby(['event_title']).sum()
 
 # change sum_per_events to json format.
-sum_per_events.to_json('file.json', orient = 'split', compression = 'infer', index = 'true')
-final_df = pd.read_json('file.json', orient ='split', compression = 'infer')
+sum_per_events.to_json('file.json', orient='split', compression='infer', index='true')
+final_df = pd.read_json('file.json', orient='split', compression='infer')
 # final_df.to_json()
 
 
