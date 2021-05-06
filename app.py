@@ -52,6 +52,14 @@ def cart():
 def bookshelf():
     return render_template('pages/dashboard.html')
 
+@application.route('/b')
+def b():
+    return render_template('pages/welcome.html')
+
+@application.route('/c')
+def c():
+    return render_template('pages/login.html')
+
 @application.route('/pages')
 def pages():
     return render_template('cart.html')
