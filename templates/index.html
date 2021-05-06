@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, viewport-fit=cover">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="default">
+		<meta name="theme-color" content="#2196f3">
+		<meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap:">
+		<title>Bambook</title>
+		<link href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,700%7CMontserrat:400,500,600,700" rel="stylesheet">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/icons.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/framework7.md.min.css') }}">
+		<link rel="apple-touch-icon" href="{{ url_for('static', filename='img/logo-square.png') }}">
+		<link rel="icon" href="{{ url_for('static', filename='img/favicon.png') }}">
+	</head>
+	<body class="color-theme-blue">
+		<div id="app">
+			<!--------------------------------- Bottom Navigation Bar --------------------------------->
+			<div class="statusbar"></div>
+	
+			<div class="view view-main view-init ios-edges" data-url="/">
+				<div class="page no-navbar page-with-toolbar">
+					
+					<div class="toolbar tabbar tabbar-labels toolbar-bottom-md custom-toolbar">
+						<div class="toolbar-inner">
+							<a href="/" class="tab-link tab-link-active">
+								<i class="material-icons">home</i>
+								<span class="tabbar-label">Home</span>
+							</a>
+							<a href="/home_2/" class="tab-link">
+								<i class="material-icons">note</i>
+								<span class="tabbar-label">Home 2</span>
+							</a>
+							<a href="/books_list/" class="tab-link">
+								<i class="material-icons">book</i>
+								<span class="tabbar-label">Books</span>
+							</a>
+							<a href="/bookshelf/" class="tab-link">
+								<i class="material-icons">bookmark</i>
+								<span class="tabbar-label">Bookshelf</span>
+							</a>
+							<a href="/pages/" class="tab-link">
+								<i class="material-icons">pages</i>
+								<span class="tabbar-label">Pages</span>
+							</a>
+						</div>
+					</div>
+
+					<!--------------------------------- End Bottom Navigation Bar --------------------------------->
+				
+					<div class="page-content">
+
+						<!--------------------------------- Bambook Logo --------------------------------->
+
+						<div class="block bambook">
+							<div class="book-img">
+								<div class="section-title display-flex justify-content-space-between align-items-center">
+									<img id="bambook-logo" src="{{ url_for('static', filename='img/logo-v2.png') }}" alt="1" class="object-fit">
+								</div>
+							</div>
+						</div>
+
+						<!--------------------------------- Welcome message --------------------------------->
+
+						<div class="section padding-left padding-right mb book-detail">
+							<div class="section-content">
+								<h1>
+									Your new book is just few clicks away, {{ ems }}
+								</h1>
+							</div>
+							<div class="section-content">
+								<p class="large-para">
+									Swap your old books with our growing community for exciting new reads without spending money or harming the environment.
+								</p>
+							</div>
+						</div>
+							
+
+						<!-- V1 welcome message
+						
+						<div class="block">
+							<p>
+								<span class="bold centered">Welcome to Bambook!</span><br>
+								Start exchanging your old books with our growing community for free!
+								Enjoy new books without spending money or harming the environment.
+							</p>
+						</div>
+
+						-->
+						
+
+						<!-------------------------------- Register & Login -------------------------------->
+
+						<div class="block">
+							<button class="col button button-big button-fill mt">Sign up</button>
+
+							<!-- To add sign in with Google here -->
+
+							<button class="col button button-big button-outline mt">Log in</button>
+						</div>
+
+						
+						<!---------------------------------- Search Books ---------------------------------->
+
+						<div class="block">
+							<div class="search-bar">
+								<input type="text" placeholder="Search by title, author or series">
+								<i class="material-icons">search</i>
+								<span class="input-clear-button margin-right"></span>
+							</div>
+						</div>
+
+						<!-------------------------------- Available Books -------------------------------->
+						
+						<div class="section padding-left padding-right mb">
+							<div class="section-title display-flex justify-content-space-between align-items-center">
+								<h2>New Available Books</h2>
+								<a href="/books_list/">View all</a>
+							</div>
+							<div class="section-content">
+							
+								<div class="books-grid books-grid-slide">
+									
+									<div data-pagination="{&quot;el&quot;: &quot;.swiper-pagination&quot;}" data-space-between="10" data-slides-per-view="2.15" class="swiper-container swiper-init swiper-container-horizontal">
+										<div class="swiper-wrapper">
+										
+											<div class="swiper-slide">
+												<div class="book-grid">
+													<div class="book-img">
+														<!--To fix the size of the image with media queries with the screen resolution is high-->
+														<img src=" {{ url_for('static', filename='img/books/available/1.jpg') }}" alt="1" class="object-fit">
+													</div>
+													<div class="book-infos">
+														<div class="book-title">
+															<a href="/free_book_single/">Harry Potter and the Goblet of Fire</a>
+														</div>
+														<div class="book-author">
+															J. K. Rowling
+														</div>
+													</div>
+												</div>
+											</div>
+											
+											<div class="swiper-slide">
+												<div class="book-grid">
+													<div class="book-img">
+														<img src="{{ url_for('static', filename='img/books/available/2.jpg') }}"
+														alt="2" class="object-fit">
+													</div>
+													<div class="book-infos">
+														<div class="book-title">
+															<a href="/free_book_single/">A Game of Thrones: Book 1 of A Song of Ice and Fire</a>
+														</div>
+														<div class="book-author">
+															George R. R. Martin
+														</div>
+													</div>
+												</div>
+											</div>
+											
+											<div class="swiper-slide">
+												<div class="book-grid">
+													<div class="book-img">
+														<img src="{{ url_for('static', filename='img/books/available/3.jpg') }}" alt="3" class="object-fit">
+													</div>
+													<div class="book-infos">
+														<div class="book-title">
+															<a href="/free_book_single/">1984</a>
+														</div>
+														<div class="book-author">
+															George Orwell
+														</div>
+													</div>
+												</div>
+											</div>
+											
+											
+										</div>
+									</div>
+																		
+								</div>
+								
+							</div>
+						</div>
+						
+					</div>
+					
+				</div>
+			</div>
+			
+		</div>
+		<script src="{{ url_for('static', filename='js/framework7.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/routes.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+	</body>
+</html>

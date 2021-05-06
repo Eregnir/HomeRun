@@ -1,0 +1,124 @@
+<div class="page no-navbar page-with-toolbar">
+	<div class="toolbar tabbar tabbar-labels toolbar-bottom-md custom-toolbar">
+		<div class="toolbar-inner">
+			<a href="/" class="tab-link">
+				<i class="material-icons">home</i>
+				<span class="tabbar-label">Home</span>
+			</a>
+			<a href="/home_2/" class="tab-link">
+				<i class="material-icons">note</i>
+				<span class="tabbar-label">Home 2</span>
+			</a>
+			<a href="/books_list/" class="tab-link">
+				<i class="material-icons">book</i>
+				<span class="tabbar-label">Books</span>
+			</a>
+			<a href="/bookshelf/" class="tab-link tab-link-active">
+				<i class="material-icons">bookmark</i>
+				<span class="tabbar-label">Bookshelf</span>
+			</a>
+			<a href="/pages/" class="tab-link">
+				<i class="material-icons">pages</i>
+				<span class="tabbar-label">Pages</span>
+			</a>
+		</div>
+	</div>
+	<div class="page-content">
+		<div class="section padding-left padding-right mb mt">
+			<div class="section-title display-flex justify-content-space-between align-items-center">
+				<h2>Bookshelf</h2>
+				<a href="/cart/"><i class="material-icons">add_shopping_cart</i></a>
+			</div>
+			<div class="section-content">
+				<div class="book-detail-header display-flex bookshelf">
+				
+					<div class="book-img">
+						<img src="{{ url_for('static', filename='img/11.jpg') }}" alt="harry" class="object-fit">
+					</div>
+					
+					<div class="book-infos">
+						<div class="book-title">Harry Potter and the goblet of fire</div>
+						<div class="book-author">By J.K. Rowling</div>
+						<div class="book-readpou">
+							<span>Read 25%</span>
+							<div class="progressbar" data-progress="35"></div>
+						</div>						
+					</div>
+				
+				</div>
+			</div>
+		</div>		
+
+		<div class="section padding-left padding-right mb">
+			<div class="section-title display-flex justify-content-space-between align-items-center">
+				<h2>Reading Books</h2>
+			</div>
+			<div class="section-content">
+				<div class="books-list-2">
+					<div class="row no-gap">
+						<div class="col">
+							<a href="/free_book_single/">
+								<div class="book-list-2">
+									<img src="{{ url_for('static', filename='img/1.jpg') }}" alt="y1" class="object-fit">
+								</div>
+							</a>
+						</div>
+						<div class="col">
+							<a href="/free_book_single/">
+								<div class="book-list-2">
+									<img src="{{ url_for('static', filename='img/2.jpg') }}" alt="y2" class="object-fit">
+								</div>
+							</a>
+						</div>
+						<div class="col">
+							<a href="/free_book_single/">
+								<div class="book-list-2">
+									<img src="{{ url_for('static', filename='img/3.jpg') }}" alt="y3" class="object-fit">
+								</div>
+							</a>
+						</div>
+					</div>
+					
+					<div class="row no-gap">
+						<div class="col">
+							<a href="/free_book_single/">
+								<div class="book-list-2">
+									<img src="{{ url_for('static', filename='img/4.jpg') }}" alt="y4" class="object-fit">
+								</div>
+							</a>
+						</div>
+						<div class="col">
+							<a href="/free_book_single/">
+								<div class="book-list-2">
+									<img src="{{ url_for('static', filename='img/5.jpg') }}" alt="y5" class="object-fit">
+								</div>
+							</a>
+						</div>
+						<div class="col">
+							<a href="/free_book_single/">
+								<div class="book-list-2">
+									<img src="{{ url_for('static', filename='img/6.jpg') }}" alt="y6" class="object-fit">
+								</div>
+							</a>
+						</div>
+					</div>
+					
+					<div class="row no-gap">
+						<div class="col">
+							<a href="#" class="add-bookshelf">
+								<div>
+									<i class="material-icons">add</i>
+								</div>
+							</a>
+						</div>
+						<div class="col">
+						</div>
+						<div class="col">
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>	
+	</div>
+</div>
