@@ -70,11 +70,16 @@
             // Set chart options
             var options = {'title':'My week',
                            'width':400,
-                           'height':300};
+                           'height':300,
+                           'legend':'right'};
     
             // Draw our chart
             var weekly_chart = new google.visualization.PieChart(document.getElementById('main_chart_div'));
             weekly_chart.draw(weeklyData, options);
+
+            //Refresh success rate after drawing the chart
+            window.weeklyHours = weeklyDataJSON_array;
+            calcSuccessRate();
           }
     
           async function getWeeklyData(){
@@ -119,7 +124,8 @@
             // Set chart options
             var options = {'title':'My week with '+name,
                            'width':400,
-                           'height':300};
+                           'height':300,
+                           'legend':'right'};
     
             // Instantiate and draw our chart, passing in some options.
             var weekly_chart_byname = new google.visualization.PieChart(document.getElementById('main_chart_div'));
@@ -131,22 +137,42 @@
             var data = new google.visualization.DataTable();
             data.addColumn('string', 'Activity');
             data.addColumn('number', 'Weekly hours');
-            data.addRows([
+            var hours = [
               ['Hangout', 5],
               ['Love', 2],
               ['Outdoor', 4],
               ['Sports', 3],
               ['Work', 30],
               ['Personal development', 3]
-            ]);
+            ];
+            data.addRows(hours);
+            //Keep to a global variable in order to calculate success %.
+            window.optimalHours = hours;
             // Set chart options
             var options = {'title':'My ideal week',
                            'width':400,
-                           'height':300};
+                           'height':300,
+                           'legend':'right'};
     
             // Instantiate and draw our chart, passing in some options.
             var chart = new google.visualization.PieChart(document.getElementById('optimal_chart_div'));
             chart.draw(data, options);
+          }
+
+          function calcSuccessRate(){
+            var tempDif = 0;
+            var sum = 0;
+            var size = window.weeklyHours.length;
+            Object.keys(window.weeklyHours).forEach(function (key) {
+              if (!Object.entries(key==="Work")){
+                tempDif = (Object.entries(window.weeklyHours[key])) / (Object.entries(window.optimalHours[key]));
+                if (tempDif > 1) tempDif = 1;
+                sum += tempDif;
+              } else {
+                size--;
+              }
+            });
+            document.getElementById("success_rate").textContent = (tempDif/size)*100 + "%";
           }
         </script>
       <!-- END Google Charts API -->
@@ -236,7 +262,17 @@
             <!-- Charts -->
             <div id="main_chart_div"></div>
             <div id="optimal_chart_div"></div>
+<<<<<<< HEAD
+            <h2 id="success_rate"></h2>
+            <!-- <svg fill="currentColor" viewBox="0 0 500 250" class="demo-graph">
+              <use xlink:href="#chart" />
+            </svg>
+            <svg fill="currentColor" viewBox="0 0 500 250" class="demo-graph">
+              <use xlink:href="#chart" />
+            </svg> -->
+=======
             <!-- Charts -->
+>>>>>>> b63d9d61a215d3875a0ddd7b9dda8752e4f17256
           </div>
           <div class="demo-cards mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-grid mdl-grid--no-spacing">
             <div class="demo-updates mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-desktop">
