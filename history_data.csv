@@ -1,11 +1,15 @@
 calender_id,event_id,start_date,end_date,start_time,end_time,duration_in_hours,event_title,event_description,attendees
-100,200,16/03/2021,16/03/2021,9:00,16:00,7,work,work ,
-100,201,16/03/2021,16/03/2021,17:00,18:00,1,outdoor,take my child to the park,Dor
-100,202,16/03/2021,16/03/2021,18:00,19:00,1,sport,playing soccer,Yuval
-100,203,17/03/2021,17/03/2021,9:00,16:00,7,work,work ,
-100,204,17/03/2021,17/03/2021,17:00,18:00,1,hangout,with my kids at home,wife
-100,205,17/03/2021,17/03/2021,18:00,19:00,1,love,dating,wife
-100,206,18/03/2021,18/03/2021,9:00,16:00,7,work,work ,
-100,207,18/03/2021,18/03/2021,17:00,18:00,1,outdoor,take my child to the park,Dor
-100,208,19/03/2021,19/03/2021,16:00,19:00,3,hangout,with my kids at home,Yuval
-101,209,19/03/2021,19/03/2021,10:00,23:00,13,love,dating ,wife
+100,200,16/03/2021,16/03/2021,9:00,16:00,7,Work,work ,
+100,201,16/03/2021,16/03/2021,17:00,18:00,1,Outdoor,take my child to the park,Dor
+100,202,16/03/2021,16/03/2021,18:00,19:00,1,Sport,playing soccer,Yuval
+100,203,17/03/2021,17/03/2021,9:00,16:00,7,Work,work ,
+100,204,17/03/2021,17/03/2021,17:00,18:00,1,Hangout,with my kids at home,wife
+100,205,17/03/2021,17/03/2021,18:00,19:00,1,Love,dating,wife
+100,206,18/03/2021,18/03/2021,9:00,16:00,7,Work,work ,
+100,207,18/03/2021,18/03/2021,17:00,18:00,1,Outdoor,take my child to the park,Dor
+100,208,19/03/2021,19/03/2021,16:00,19:00,3,Hangout,with my kids at home,Yuval
+101,209,19/03/2021,19/03/2021,21:00,23:00,2,Love,dating ,wife
+100,210,21/03/2021,21/03/2021,9:00,16:00,7,Work,work ,
+100,211,22/03/2021,22/03/2021,9:00,16:00,7,Work,work ,
+100,212,23/03/2021,23/03/2021,9:00,16:00,7,Work,work ,
+100,213,23/03/2021,23/03/2021,17:00,19:00,2,Outdoor,take my child to the park,Dor
