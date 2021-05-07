@@ -1,2 +1,5 @@
 venv
 .idea
+file.json
+__pycache__/calc.cpython-39.pyc
+file.json

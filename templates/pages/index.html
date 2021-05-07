@@ -86,7 +86,7 @@
       }
 
       async function getWeeklyDataByFamilyMember(data){
-        const url = 'https://home-run.herokuapp.com/calculations';
+        const url = 'https://home-run.herokuapp.com/familyhours';
         const response = await fetch(url, {method: 'POST', body: JSON.stringify(data)});
         console.log(response);
         const jsonResponse = await response.json();
@@ -101,8 +101,16 @@
         weeklyDataByName.addColumn('number', 'Weekly hours');
 
         //Converting the array of objects to array of arrays (required parameter for 'addRows()')
-        weeklyDataByNameJSON_array = Object.entries(weeklyDataByNameJSON.duration_in_hours);
-        weeklyDataByName.addRows(weeklyDataByNameJSON_array);
+     //   weeklyDataByNameJSON_array = Object.entries(weeklyDataByNameJSON.duration_in_hours);
+      //  weeklyDataByName.addRows(weeklyDataByNameJSON_array);
+
+        //Getting the object corresponding to the name
+        Object.keys(weeklyDataByNameJSON).forEach(function (key) {
+            if (name === key){
+                weeklyDataByNameJSON_array = Object.entries(weeklyDataByNameJSON[key]);
+                weeklyDataByName.addRows(weeklyDataByNameJSON_array);
+            }
+        });
 
         // Set chart options
         var options = {'title':'My week with '+name,
@@ -476,7 +484,7 @@
                                         <h3>How did I spend my time this week?</h3>
                                         <div id="main_chart_div"></div>
                                         <div id="optimal_chart_div"></div>
-                                        <button type="button" onclick="drawChartByName('Dor')">Dor</button>
+                                        <button type="button" onclick="drawChartByName('Tom')">Dor</button>
                                         <button type="button" onclick="drawOptimalChart()">Optimal</button>
                                     </div>
                                 </div>
