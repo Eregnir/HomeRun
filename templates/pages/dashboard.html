@@ -321,16 +321,16 @@
               </div>
             </div>
             <div class="demo-separator mdl-cell--1-col"></div>
-            <div class="demo-options mdl-card mdl-color--deep-purple-500 mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--3-col-tablet mdl-cell--12-col-desktop">
+            <div class="demo-options mdl-card mdl-color--deep-purple-500 mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--3-col-tablet mdl-cell--12-col-desktop" id="stars_box">
               <div class="mdl-card__supporting-text mdl-color-text--blue-grey-50">
                 <h2 class="mdl-card__title-text smaller-h2">How balanced was your week?</h2>
               </div>
                 <div class="rating rating2"><!--
-                --><a href="#5" title="Give 5 stars">★</a><!--
-                --><a href="#4" title="Give 4 stars">★</a><!--
-                --><a href="#3" title="Give 3 stars">★</a><!--
-                --><a href="#2" title="Give 2 stars">★</a><!--
-                --><a href="#1" title="Give 1 star">★</a>
+                --><a id="fiveStars" title="Give 5 stars" onclick="clickFireworks();return false;">★</a><!--
+                --><a id="fourStars" title="Give 4 stars">★</a><!--
+                --><a id="threeStars" title="Give 3 stars">★</a><!--
+                --><a id="twoStars" title="Give 2 stars">★</a><!--
+                --><a id="oneStart" title="Give 1 star">★</a>
               </div>
             </div>
           </div>
@@ -419,5 +419,21 @@
       <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js"></script>
       <script src="../../js/jquery.click-firewords.js"></script>
+      <script>
+        $(function () {
+          $('#fiveStars').clickFireworks({
+
+            // canvas id
+            id: 'fireworks', 
+
+            // append canvas to where, default is body
+            appendTo: '#stars_box', 
+
+            // canvas z-index, make it higher than anything on the page
+            zIndex: 1000 
+            
+          });
+        });
+      </script>
   </body>
 </html>
