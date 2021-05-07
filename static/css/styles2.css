@@ -38,6 +38,12 @@ body .demo-blog {
   font-family: 'Roboto', 'Helvetica', sans-serif;
 }
 
+.mdl-header-layout {
+  background-color: white;
+  min-height:140px;
+  border-color: 2px solid black 
+}
+
 .demo-blog .demo-blog__posts {
   max-width: 900px;
   padding: 0;
@@ -52,7 +58,7 @@ body .demo-blog {
 }
 
 .demo-blog.mdl-layout .mdl-layout__content {
-  padding-top: 100px;
+  padding-top: 50px;
   position: relative;
   -webkit-overflow-scrolling: touch;
 }
