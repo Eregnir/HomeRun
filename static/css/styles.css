@@ -287,9 +287,11 @@ _:-ms-input-placeholder, :root .demo-graph {
 			color: orange;
 			cursor: pointer;
 		}
+    
 		.rating2 {
 			direction: rtl;
 		}
 		.rating2 a {
 			float:none
 		}
+  
