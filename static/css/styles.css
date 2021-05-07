@@ -295,16 +295,3 @@ _:-ms-input-placeholder, :root .demo-graph {
 			float:none
 		}
   
-    .parent {
-      /* inline-block hack */
-      text-align: center;
-    }
-    
-    .child {
-      width: 400px;
-      height: 400px;
-      margin: 0 10px;
-      /* inline-block hack */
-      display: inline-block;
-      text-align: left;
-    }
