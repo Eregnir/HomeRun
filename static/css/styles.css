@@ -310,3 +310,10 @@ _:-ms-input-placeholder, :root .demo-graph {
       padding: 20px;
       visibility: hidden;
     }
+
+    .field-score {
+      background-color: #4db6ac !important;
+      border-radius: 15px;
+      color:white;
+
+    }

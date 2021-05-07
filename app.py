@@ -41,7 +41,7 @@ def index():
 
 @application.route('/b')
 def b():
-    return render_template('pages/welcome.html')
+    return render_template('pages/db2.html')
 
 @application.route('/c')
 def c():

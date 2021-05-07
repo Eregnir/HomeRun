@@ -1,0 +1,463 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Home Run</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="../../static/images/android-desktop.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="../../static/images/ios-desktop.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="../../static/images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="shortcut icon" href="../../static/images/favicon.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-light_blue.min.css">
+    <link rel="stylesheet" href="../../static/css/styles.css">
+    <style>
+    #view-source {
+      position: fixed;
+      display: block;
+      right: 0;
+      bottom: 0;
+      margin-right: 40px;
+      margin-bottom: 40px;
+      z-index: 900;
+    }
+    </style>
+<!-- HomeRun time charts start here -->
+        <!-- Google charts API - Define chart structure -->
+        <!--Load the AJAX API-->
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+    
+          // Load the Visualization API and the corechart package.
+          google.charts.load('current', {'packages':['corechart']});
+    
+          // Set a callback to run when the Google Visualization API is loaded.
+          google.charts.setOnLoadCallback(drawChart);
+          google.charts.load('current', {'packages':['corechart']});
+          google.charts.setOnLoadCallback(drawOptimalChart);
+          // Callback that creates and populates a data table,
+          // instantiates the pie chart, passes in the data and
+          // draws it.
+
+          async function drawChart() {
+            // Get the data from the DB and create the data table.
+            var weeklyDataJSON = await getWeeklyData();
+            var weeklyData = new google.visualization.DataTable();
+            weeklyData.addColumn('string', 'Activity');
+            weeklyData.addColumn('number', 'Weekly hours');
+    
+            //Converting the array of objects to array of arrays (required parameter for 'addRows()')
+            //obsolete: weeklyDataJSON_array = weeklyDataJSON.map(row => Object.values(row));
+            weeklyDataJSON_array = Object.entries(weeklyDataJSON.duration_in_hours);
+            weeklyData.addRows(weeklyDataJSON_array);
+    
+            // Set chart options
+            var options = {'title':'My week',
+                           'width':400,
+                           'height':300,
+                           'legend':'right'};
+    
+            // Draw our chart
+            var weekly_chart = new google.visualization.PieChart(document.getElementById('main_chart_div'));
+            weekly_chart.draw(weeklyData, options);
+
+            //Refresh success rate after drawing the chart
+            window.weeklyHours = weeklyDataJSON_array;
+            calcSuccessRate();
+          }
+    
+          async function getWeeklyData(){
+            //const url = 'https://run.mocky.io/v3/6184f23f-8dd1-49f0-8e32-809a797f1aa0';
+            const url = 'https://home-run.herokuapp.com/calculations';
+            //const response = await fetch(url);
+            const response = await fetch(url, {method: 'POST'});
+            console.log(response);
+            const jsonResponse = await response.json();
+            console.log(jsonResponse);
+            return jsonResponse;
+          }
+    
+          async function getWeeklyDataByFamilyMember(data){
+            //const url = 'https://home-run.herokuapp.com/familyhours';
+            const url = 'https://run.mocky.io/v3/ca3ef64c-9cb9-4e0d-bcd6-6b0d105c7f2c';
+            const response = await fetch(url, {method: 'POST', body: JSON.stringify(data)});
+            console.log(response);
+            const jsonResponse = await response.json();
+            console.log(jsonResponse);
+            return jsonResponse;
+          }
+    
+          async function drawChartByName(name){
+            var weeklyDataByNameJSON = await getWeeklyDataByFamilyMember(name);
+            var weeklyDataByName = new google.visualization.DataTable();
+            weeklyDataByName.addColumn('string', 'Activity');
+            weeklyDataByName.addColumn('number', 'Weekly hours');
+    
+            //Converting the array of objects to array of arrays (required parameter for 'addRows()')
+         //   weeklyDataByNameJSON_array = Object.entries(weeklyDataByNameJSON.duration_in_hours);
+          //  weeklyDataByName.addRows(weeklyDataByNameJSON_array);
+    
+            //Getting the object corresponding to the name
+            Object.keys(weeklyDataByNameJSON).forEach(function (key) {
+                if (name === key){
+                    weeklyDataByNameJSON_array = Object.entries(weeklyDataByNameJSON[key]);
+                    weeklyDataByName.addRows(weeklyDataByNameJSON_array);
+                }
+            });
+    
+            // Set chart options
+            var options = {'title':'My week with '+name,
+                           'width':400,
+                           'height':300,
+                           'legend':'right'};
+    
+            // Instantiate and draw our chart, passing in some options.
+            var weekly_chart_byname = new google.visualization.PieChart(document.getElementById('main_chart_div'));
+            weekly_chart_byname.draw(weeklyDataByName, options);
+          }
+    
+          function drawOptimalChart(){
+              // Create the data table.
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Activity');
+            data.addColumn('number', 'Weekly hours');
+            var hours = [
+              ['Hangout', 5],
+              ['Love', 2],
+              ['Outdoor', 4],
+              ['Sports', 3],
+              ['Work', 30],
+              ['Personal development', 3]
+            ];
+            data.addRows(hours);
+            //Keep to a global variable in order to calculate success %.
+            window.optimalHours = hours;
+            // Set chart options
+            var options = {'title':'My ideal week',
+                           'width':400,
+                           'height':300,
+                           'legend':'right'};
+    
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.PieChart(document.getElementById('optimal_chart_div'));
+            chart.draw(data, options);
+          }
+
+          function calcSuccessRate(){
+            var tempDif = 0;
+            var sum = 0;
+            var size = 0;
+            var size = window.weeklyHours.length;
+            Object.keys(window.weeklyHours).forEach(function (key) {
+
+            tempDif = tempDif +0.898
+              // if (!Object.entries(key==="Work")){
+              //   tempDif = (Object.entries(window.weeklyHours[key])) / (Object.entries(window.optimalHours[key]));
+              //   if (tempDif > 1) tempDif = 1;
+              //   sum += tempDif;
+              // } else {
+              //   size--;
+              // }
+            });
+            document.getElementById("success_rate").textContent = "Ideal Week! Score: " + (tempDif/size)*100 + "%, almost a HomeRun!";
+          }
+        </script>
+      <!-- END Google Charts API -->
+  </head>
+  <body>
+    <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+      <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
+        <div class="mdl-layout__header-row">
+          <span class="mdl-layout-title">Overview</span>
+          <div class="mdl-layout-spacer"></div>
+          <div class="mdl-layout__content">
+            <label for="switch-btn" class="mdl-switch mdl-js-switch ">
+              <input type="checkbox" id="switch-btn" class="mdl-switch__input">
+              <span class="mdl-switch__label">Weekly/Monthly</span>
+            </label>
+          </div>
+          <div class="mdl-layout__content" id="weekly-date"><span class="w-date">16.03.21 - 23.03.21</span></div> <!--to change the date when clicked on Monthly-->
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+            <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
+              <i class="material-icons">search</i>
+            </label>
+            <div class="mdl-textfield__expandable-holder">
+              <input class="mdl-textfield__input" type="text" id="search">
+              <label class="mdl-textfield__label" for="search">Enter your query...</label>
+            </div>
+          </div>
+          <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
+            <i class="material-icons">more_vert</i>
+          </button>
+          <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
+            <li class="mdl-menu__item">About</li>
+            <li class="mdl-menu__item">Contact</li>
+            <li class="mdl-menu__item">Legal information</li>
+          </ul>
+        </div>
+      </header>
+      <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+        <header class="demo-drawer-header">
+          <img src="../../static/images/dad.png" class="demo-avatar">
+          <div class="demo-avatar-dropdown">
+            <span>assafye@gmail.com</span>
+            <div class="mdl-layout-spacer"></div>
+            <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+              <i class="material-icons" role="presentation">arrow_drop_down</i>
+              <span class="visuallyhidden">Accounts</span>
+            </button>
+            <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
+              <li class="mdl-menu__item">assafye@gmail.com</li>
+              <li class="mdl-menu__item">danalev@gmail.com</li>
+              <li class="mdl-menu__item"><i class="material-icons">add</i>Add another account...</li>
+            </ul>
+          </div>
+        </header>
+        <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
+          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Dashboard</a>
+          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">family_restroom</i>Manage Family</a>
+          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">emoji_events</i>Goals</a>
+          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">pest_control</i>Constraints</a>
+          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">people</i>Social</a>
+          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">flag</i>Updates</a>
+        </nav>
+      </div>
+      <main class="mdl-layout__content mdl-color--grey-100">
+        <div class="mdl-grid demo-content">
+        <!-- Family Members Buttons -->
+          <div class="head-profile head-active" id="p1">
+            <img src="../../static/images/family.png" alt="profile1" id="profile1" 
+            name="profile1" alt="" onclick="drawChart()"/>
+            <br><br><span class="profile-text text-active go-left">Family Overview</span>
+          </div>
+          <div class="head-profile" id="p2">
+            <img src="../../static/images/mom.png" alt="profile2" id="profile2" 
+            name="profile1" onclick="drawChartByName('Dana')"/>
+            <br><span class="profile-text">Dana</span>
+          </div>
+          <div class="head-profile" id="p3">
+            <img src="../../static/images/kid1.png" alt="profile3" id="profile3" 
+            name="profile1" onclick="drawChartByName('Dor')"/>
+            <br><span class="profile-text">Dor</span>
+          </div>
+          <div class="head-profile" id="p4">
+            <img src="../../static/images/kid2.png" alt="profile4" id="profile4" 
+            name="profile1" onclick="drawChartByName('Yuval')"/>
+            <br><span class="profile-text">Yuval</span>
+          </div>
+          <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--8-col">
+            <!-- Charts -->
+            <div id="main_chart_div"></div>
+            <div id="optimal_chart_div"></div>
+            <div style="color: white; text-shadow: 2px 2px 4px #000000;" class="field-score"><h3 style="text-align: center;" id="success_rate"></h3></div>
+            <!-- <svg fill="currentColor" viewBox="0 0 500 250" class="demo-graph">
+              <use xlink:href="#chart" />
+            </svg>
+            <svg fill="currentColor" viewBox="0 0 500 250" class="demo-graph">
+              <use xlink:href="#chart" />
+            </svg> -->
+          </div>
+          <div class="demo-cards mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-grid mdl-grid--no-spacing">
+            <div class="demo-updates mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-desktop">
+              <div class="mdl-card__title mdl-card--expand mdl-color--teal-300">
+                <h2 class="mdl-card__title-text">Recommendations</h2>
+              </div>
+              <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+                <ul class="demo-list-two mdl-list">
+                  <li class="mdl-list__item mdl-list__item--two-line">
+                    <span class="mdl-list__item-primary-content">
+                      <i class="material-icons mdl-list__item-avatar">self_improvement</i>
+                      <span>Your goals</span>
+                      <span class="mdl-list__item-sub-title">Daily meditation can help you perform better at work</span>
+                    </span>
+                    <span class="mdl-list__item-secondary-content">
+                      <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">favorite</i></a>
+                    </span>
+                  </li>
+                  <li class="mdl-list__item mdl-list__item--two-line">
+                    <span class="mdl-list__item-primary-content">
+                      <i class="material-icons mdl-list__item-avatar">pregnant_woman</i>
+                      <span>Childbirth Classes</span>
+                      <span class="mdl-list__item-sub-title">We recommend you to finish your last week assignements</span>
+                    </span>
+                    <span class="mdl-list__item-secondary-content">
+                      <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">rule</i></a>
+                    </span>
+                  </li>
+                  <li class="mdl-list__item mdl-list__item--two-line">
+                    <span class="mdl-list__item-primary-content">
+                      <i class="material-icons mdl-list__item-avatar">work_off</i>
+                      <span>Work Life Balance</span>
+                      <span class="mdl-list__item-sub-title">Recharge your energy with a day off next week!</span>
+                    </span>
+                    <span class="mdl-list__item-secondary-content">
+                      <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">battery_charging_full</i></a>
+                    </span>
+                  </li>
+                </ul>
+              </div>
+              <div class="mdl-card__actions mdl-card--border">
+                <a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect">More recommendations</a>
+              </div>
+            </div>
+            <div class="demo-separator mdl-cell--1-col"></div>
+            <div class="demo-options mdl-card mdl-color--deep-purple-500 mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--3-col-tablet mdl-cell--12-col-desktop" id="stars_box">
+              <div class="mdl-card__supporting-text mdl-color-text--blue-grey-50">
+                <h2 class="mdl-card__title-text smaller-h2">How balanced was your week?</h2>
+              </div>
+                <div class="rating rating2"><!--
+                --><a id="fiveStars" title="Give 5 stars" onclick="clickFireworks();return false;">★</a><!--
+                --><a id="fourStars" title="Give 4 stars">★</a><!--
+                --><a id="threeStars" title="Give 3 stars">★</a><!--
+                --><a id="twoStars" title="Give 2 stars">★</a><!--
+                --><a id="oneStars" title="Give 1 star">★</a>
+              </div>
+              <div class="mdl-list__item-sub-title">
+                <span class="hide-me">Run forrest run!</span><br><span class="hide-me">You have just hit a Home Run!</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+      
+      <a href="#" target="_blank" id="view-source" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored mdl-color-text--white">Home Run!</a>
+      <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js"></script>
+      <script src="../../js/jquery.click-firewords.js"></script>
+      <script>
+        $(function () {
+          $('#fiveStars').clickFireworks({
+
+            // canvas id
+            id: 'fireworks', 
+
+            // append canvas to where, default is body
+            appendTo: '#stars_box', 
+
+            // canvas z-index, make it higher than anything on the page
+            zIndex: 1000 
+            
+          });
+        });
+
+        $("#fiveStars").on("error", function() {
+          console.log("Error");
+        });
+
+        $(function() {                       //run when the DOM is ready
+          $("#p1").click(function() {  
+              $(this).addClass("head-active");      
+              $("#p2").removeClass("head-active");
+              $("#p3").removeClass("head-active");
+              $("#p4").removeClass("head-active");
+              $('.hide-me').css("visibility", "hidden");
+          });
+        });
+
+        $(function() {                       
+          $("#p2").click(function() {  
+              $(this).addClass("head-active");      
+              $("#p1").removeClass("head-active");
+              $("#p3").removeClass("head-active");
+              $("#p4").removeClass("head-active");
+              $('.hide-me').css("visibility", "hidden");
+          });
+        });
+
+        $(function() {                       
+          $("#p3").click(function() {  
+              $(this).addClass("head-active");      
+              $("#p2").removeClass("head-active");
+              $("#p1").removeClass("head-active");
+              $("#p4").removeClass("head-active");
+              $('.hide-me').css("visibility", "hidden");
+          });
+        });
+
+        $(function() {                       
+          $("#p4").click(function() {  
+              $(this).addClass("head-active");      
+              $("#p2").removeClass("head-active");
+              $("#p3").removeClass("head-active");
+              $("#p1").removeClass("head-active");
+              $('.hide-me').css("visibility", "hidden");
+          });
+        });
+
+      // Save stars script
+      $(function() {                       
+          $("#oneStars").click(function() {
+            $("#oneStars").css("color", "#ffa500");
+            $("#twoStars").css("color", "");
+            $("#threeStars").css("color", "");
+            $("#fourStars").css("color", "");
+            $("#fiveStars").css("color", "");
+            $('.hide-me').css("visibility", "hidden");
+            
+          });
+        });
+
+        $(function() {                       
+          $("#twoStars").click(function() {
+            $("#oneStars").css("color", "#ffa500");
+            $("#twoStars").css("color", "#ffa500");
+            $("#threeStars").css("color", "");
+            $("#fourStars").css("color", "");
+            $("#fiveStars").css("color", "");
+            $('.hide-me').css("visibility", "hidden");
+          });
+        });
+
+        $(function() {                       
+          $("#threeStars").click(function() {
+            $("#oneStars").css("color", "#ffa500");
+            $("#twoStars").css("color", "#ffa500");
+            $("#threeStars").css("color", "#ffa500");
+            $("#fourStars").css("color", "");
+            $("#fiveStars").css("color", "");
+            $('.hide-me').css("visibility", "hidden");
+          });
+        });
+
+        $(function() {                       
+          $("#fourStars").click(function() {
+            $("#oneStars").css("color", "#ffa500");
+            $("#twoStars").css("color", "#ffa500");
+            $("#threeStars").css("color", "#ffa500");
+            $("#fourStars").css("color", "#ffa500");
+            $("#fiveStars").css("color", "");
+            $('.hide-me').css("visibility", "hidden");
+          });
+        });
+
+        $(function() {                       
+          $("#fiveStars").click(function() {
+            $("#oneStars").css("color", "#ffa500");
+            $("#twoStars").css("color", "#ffa500");
+            $("#threeStars").css("color", "#ffa500");
+            $("#fourStars").css("color", "#ffa500");
+            $("#fiveStars").css("color", "#ffa500");
+            $('.hide-me').css("visibility", "visible");
+          });
+        });
+      </script>
+  </body>
+</html>
