@@ -222,29 +222,33 @@
       <main class="mdl-layout__content mdl-color--grey-100">
         <div class="mdl-grid demo-content">
         <!-- Family Members Buttons -->
-          <div class="head-profile head-active">
+          <div class="head-profile head-active" id="p1">
             <img src="../../static/images/dad.png" alt="profile1" id="profile1" 
             name="profile1" alt="" onclick="drawChart()"/>
             <br><span class="profile-text text-active">Family Overview</span>
           </div>
-          <div class="head-profile">
+          <div class="head-profile" id="p2">
             <img src="../../static/images/mom.png" alt="profile2" id="profile2" 
             name="profile1" onclick="drawChartByName('Dana')"/>
             <br><span class="profile-text">Dana</span>
           </div>
-          <div class="head-profile">
+          <div class="head-profile" id="p3">
             <img src="../../static/images/kid1.png" alt="profile3" id="profile3" 
             name="profile1" onclick="drawChartByName('Dor')"/>
             <br><span class="profile-text">Dor</span>
           </div>
-          <div class="head-profile">
+          <div class="head-profile" id="p4">
             <img src="../../static/images/kid2.png" alt="profile4" id="profile4" 
             name="profile1" onclick="drawChartByName('Yuval')"/>
             <br><span class="profile-text">Yuval</span>
           </div>
           <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--8-col">
-            <div id="main_chart_div"></div>
-            <div id="optimal_chart_div"></div>
+            <!-- Charts -->
+            <div class="parent">
+              <div id="main_chart_div child"></div>
+              <div id="optimal_chart_div child"></div>
+            </div>
+
           </div>
           <div class="demo-cards mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-grid mdl-grid--no-spacing">
             <div class="demo-updates mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-desktop">
@@ -330,6 +334,42 @@
 
         $("#fiveStars").on("error", function() {
           console.log("Error");
+        });
+
+        $(function() {                       //run when the DOM is ready
+          $("#p1").click(function() {  
+              $(this).addClass("head-active");      
+              $("#p2").removeClass("head-active");
+              $("#p3").removeClass("head-active");
+              $("#p4").removeClass("head-active");
+          });
+        });
+
+        $(function() {                       
+          $("#p2").click(function() {  
+              $(this).addClass("head-active");      
+              $("#p1").removeClass("head-active");
+              $("#p3").removeClass("head-active");
+              $("#p4").removeClass("head-active");
+          });
+        });
+
+        $(function() {                       
+          $("#p3").click(function() {  
+              $(this).addClass("head-active");      
+              $("#p2").removeClass("head-active");
+              $("#p1").removeClass("head-active");
+              $("#p4").removeClass("head-active");
+          });
+        });
+
+        $(function() {                       
+          $("#p4").click(function() {  
+              $(this).addClass("head-active");      
+              $("#p2").removeClass("head-active");
+              $("#p3").removeClass("head-active");
+              $("#p1").removeClass("head-active");
+          });
         });
       </script>
   </body>
