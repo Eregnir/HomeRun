@@ -202,20 +202,20 @@
         </header>
         <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
           <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Dashboard</a>
+          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">family_restroom</i>Manage Family</a>
+          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">emoji_events</i>Goals</a>
+          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">pest_control</i>Constraints</a>
+          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">people</i>Social</a>
           <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">flag</i>Updates</a>
-          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">local_offer</i>Promos</a>
-          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">shopping_cart</i>Purchases</a>          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">people</i>Social</a>
-          <div class="mdl-layout-spacer"></div>
-          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">help_outline</i><span class="visuallyhidden">Help</span></a>
         </nav>
       </div>
       <main class="mdl-layout__content mdl-color--grey-100">
         <div class="mdl-grid demo-content">
         <!-- Family Members Buttons -->
           <div class="head-profile head-active" id="p1">
-            <img src="../../static/images/dad.png" alt="profile1" id="profile1" 
+            <img src="../../static/images/family.png" alt="profile1" id="profile1" 
             name="profile1" alt="" onclick="drawChart()"/>
-            <br><span class="profile-text text-active">Family Overview</span>
+            <br><br><span class="profile-text text-active go-left">Family Overview</span>
           </div>
           <div class="head-profile" id="p2">
             <img src="../../static/images/mom.png" alt="profile2" id="profile2" 
@@ -293,6 +293,9 @@
                 --><a id="twoStars" title="Give 2 stars">★</a><!--
                 --><a id="oneStars" title="Give 1 star">★</a>
               </div>
+              <div class="mdl-list__item-sub-title">
+                <span class="hide-me">Run forrest run!</span><br><span class="hide-me">You have just hit a Home Run!</span>
+              </div>
             </div>
           </div>
         </div>
@@ -330,6 +333,7 @@
               $("#p2").removeClass("head-active");
               $("#p3").removeClass("head-active");
               $("#p4").removeClass("head-active");
+              $('.hide-me').css("visibility", "hidden");
           });
         });
 
@@ -339,6 +343,7 @@
               $("#p1").removeClass("head-active");
               $("#p3").removeClass("head-active");
               $("#p4").removeClass("head-active");
+              $('.hide-me').css("visibility", "hidden");
           });
         });
 
@@ -348,6 +353,7 @@
               $("#p2").removeClass("head-active");
               $("#p1").removeClass("head-active");
               $("#p4").removeClass("head-active");
+              $('.hide-me').css("visibility", "hidden");
           });
         });
 
@@ -357,6 +363,7 @@
               $("#p2").removeClass("head-active");
               $("#p3").removeClass("head-active");
               $("#p1").removeClass("head-active");
+              $('.hide-me').css("visibility", "hidden");
           });
         });
 
@@ -368,6 +375,8 @@
             $("#threeStars").css("color", "");
             $("#fourStars").css("color", "");
             $("#fiveStars").css("color", "");
+            $('.hide-me').css("visibility", "hidden");
+            
           });
         });
 
@@ -378,6 +387,7 @@
             $("#threeStars").css("color", "");
             $("#fourStars").css("color", "");
             $("#fiveStars").css("color", "");
+            $('.hide-me').css("visibility", "hidden");
           });
         });
 
@@ -388,6 +398,7 @@
             $("#threeStars").css("color", "#ffa500");
             $("#fourStars").css("color", "");
             $("#fiveStars").css("color", "");
+            $('.hide-me').css("visibility", "hidden");
           });
         });
 
@@ -398,6 +409,7 @@
             $("#threeStars").css("color", "#ffa500");
             $("#fourStars").css("color", "#ffa500");
             $("#fiveStars").css("color", "");
+            $('.hide-me').css("visibility", "hidden");
           });
         });
 
@@ -408,6 +420,7 @@
             $("#threeStars").css("color", "#ffa500");
             $("#fourStars").css("color", "#ffa500");
             $("#fiveStars").css("color", "#ffa500");
+            $('.hide-me').css("visibility", "visible");
           });
         });
       </script>

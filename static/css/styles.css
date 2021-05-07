@@ -295,3 +295,18 @@ _:-ms-input-placeholder, :root .demo-graph {
 			float:none
 		}
   
+    #profile1 {
+      max-width: 103px;
+      margin-top: 10px;
+    }
+
+    .go-left {
+      margin-left: -28px;
+    }
+
+
+    .hide-me {
+      color: #eceff1;
+      padding: 20px;
+      visibility: hidden;
+    }
