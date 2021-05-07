@@ -44,118 +44,6 @@
       z-index: 900;
     }
     </style>
-<!-- HomeRun time charts start here -->
-        <!-- Google charts API - Define chart structure -->
-        <!--Load the AJAX API-->
-        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-        <script type="text/javascript">
-    
-          // Load the Visualization API and the corechart package.
-          google.charts.load('current', {'packages':['corechart']});
-    
-          // Set a callback to run when the Google Visualization API is loaded.
-          google.charts.setOnLoadCallback(drawChart);
-          google.charts.load('current', {'packages':['corechart']});
-          google.charts.setOnLoadCallback(drawOptimalChart);
-          // Callback that creates and populates a data table,
-          // instantiates the pie chart, passes in the data and
-          // draws it.
-
-          async function drawChart() {
-            // Get the data from the DB and create the data table.
-            var weeklyDataJSON = await getWeeklyData();
-            var weeklyData = new google.visualization.DataTable();
-            weeklyData.addColumn('string', 'Activity');
-            weeklyData.addColumn('number', 'Weekly hours');
-    
-            //Converting the array of objects to array of arrays (required parameter for 'addRows()')
-            //obsolete: weeklyDataJSON_array = weeklyDataJSON.map(row => Object.values(row));
-            weeklyDataJSON_array = Object.entries(weeklyDataJSON.duration_in_hours);
-            weeklyData.addRows(weeklyDataJSON_array);
-    
-            // Set chart options
-            var options = {'title':'My week',
-                           'width':400,
-                           'height':300};
-    
-            // Draw our chart
-            var weekly_chart = new google.visualization.PieChart(document.getElementById('main_chart_div'));
-            weekly_chart.draw(weeklyData, options);
-          }
-    
-          async function getWeeklyData(){
-            //const url = 'https://run.mocky.io/v3/6184f23f-8dd1-49f0-8e32-809a797f1aa0';
-            const url = 'https://home-run.herokuapp.com/calculations';
-            //const response = await fetch(url);
-            const response = await fetch(url, {method: 'POST'});
-            console.log(response);
-            const jsonResponse = await response.json();
-            console.log(jsonResponse);
-            return jsonResponse;
-          }
-    
-          async function getWeeklyDataByFamilyMember(data){
-            //const url = 'https://home-run.herokuapp.com/familyhours';
-            const url = 'https://run.mocky.io/v3/ca3ef64c-9cb9-4e0d-bcd6-6b0d105c7f2c';
-            const response = await fetch(url, {method: 'POST', body: JSON.stringify(data)});
-            console.log(response);
-            const jsonResponse = await response.json();
-            console.log(jsonResponse);
-            return jsonResponse;
-          }
-    
-          async function drawChartByName(name){
-            var weeklyDataByNameJSON = await getWeeklyDataByFamilyMember(name);
-            var weeklyDataByName = new google.visualization.DataTable();
-            weeklyDataByName.addColumn('string', 'Activity');
-            weeklyDataByName.addColumn('number', 'Weekly hours');
-    
-            //Converting the array of objects to array of arrays (required parameter for 'addRows()')
-         //   weeklyDataByNameJSON_array = Object.entries(weeklyDataByNameJSON.duration_in_hours);
-          //  weeklyDataByName.addRows(weeklyDataByNameJSON_array);
-    
-            //Getting the object corresponding to the name
-            Object.keys(weeklyDataByNameJSON).forEach(function (key) {
-                if (name === key){
-                    weeklyDataByNameJSON_array = Object.entries(weeklyDataByNameJSON[key]);
-                    weeklyDataByName.addRows(weeklyDataByNameJSON_array);
-                }
-            });
-    
-            // Set chart options
-            var options = {'title':'My week with '+name,
-                           'width':400,
-                           'height':300};
-    
-            // Instantiate and draw our chart, passing in some options.
-            var weekly_chart_byname = new google.visualization.PieChart(document.getElementById('main_chart_div'));
-            weekly_chart_byname.draw(weeklyDataByName, options);
-          }
-    
-          function drawOptimalChart(){
-              // Create the data table.
-            var data = new google.visualization.DataTable();
-            data.addColumn('string', 'Activity');
-            data.addColumn('number', 'Weekly hours');
-            data.addRows([
-              ['Hangout', 5],
-              ['Love', 2],
-              ['Outdoor', 4],
-              ['Sports', 3],
-              ['Work', 30],
-              ['Personal development', 3]
-            ]);
-            // Set chart options
-            var options = {'title':'My ideal week',
-                           'width':400,
-                           'height':300};
-    
-            // Instantiate and draw our chart, passing in some options.
-            var chart = new google.visualization.PieChart(document.getElementById('optimal_chart_div'));
-            chart.draw(data, options);
-          }
-        </script>
-      <!-- END Google Charts API -->
   </head>
   <body>
     <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
@@ -214,18 +102,19 @@
           <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">forum</i>Forums</a>
           <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">flag</i>Updates</a>
           <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">local_offer</i>Promos</a>
-          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">shopping_cart</i>Purchases</a>          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">people</i>Social</a>
+          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">shopping_cart</i>Purchases</a>
+          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">people</i>Social</a>
           <div class="mdl-layout-spacer"></div>
           <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">help_outline</i><span class="visuallyhidden">Help</span></a>
         </nav>
       </div>
       <main class="mdl-layout__content mdl-color--grey-100">
         <div class="mdl-grid demo-content">
-        <!-- Family Members Buttons -->
+          <!-- Family Members Buttons -->
           <div class="head-profile head-active">
             <img src="../../static/images/dad.png" alt="profile1" id="profile1" 
-            name="profile1" alt="" onclick="drawChart()"/>
-            <br><span class="profile-text text-active">Family Overview</span>
+            name="profile1" alt="" onclick="drawChartByName('Assaf')"/>
+            <br><span class="profile-text text-active">Assaf</span>
           </div>
           <div class="head-profile">
             <img src="../../static/images/mom.png" alt="profile2" id="profile2" 
@@ -268,8 +157,8 @@
             </svg>
           </div> -->
           <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--8-col">
-            <div id="main_chart_div"></div>
-            <div id="optimal_chart_div"></div>
+            <div id="weekly_chart_div"></div>
+            <div id="chart_byname_div"></div>
             <!-- <svg fill="currentColor" viewBox="0 0 500 250" class="demo-graph">
               <use xlink:href="#chart" />
             </svg>
@@ -433,10 +322,6 @@
             zIndex: 1000 
             
           });
-        });
-
-        $("#fiveStars").on("error", function() {
-          console.log("Error");
         });
       </script>
   </body>
